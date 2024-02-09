@@ -2,6 +2,8 @@ package com.ecwid.counter;
 
 import java.util.Arrays;
 
+import static com.ecwid.IpAddressUtils.getAddrInt;
+
 /*
     Effective for addresses from same subnets and huge amounts
  */
@@ -12,11 +14,11 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
 
     @Override
     public void addAddress(final String addr) {
-        int[] addrInt = getAddrInt(addr);
-        int a = addrInt[0];
-        int b = addrInt[1];
-        int c = addrInt[2];
-        int d = addrInt[3];
+        final int[] addrInt = getAddrInt(addr);
+        final int a = addrInt[0];
+        final int b = addrInt[1];
+        final int c = addrInt[2];
+        final int d = addrInt[3];
         if (addresses[a] == null) {
             addresses[a] = new boolean[256][][];
         } else {
@@ -55,21 +57,21 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
         }
     }
 
-    private boolean isAllFull(boolean[][][] arr) {
+    private boolean isAllFull(final boolean[][][] arr) {
         for (boolean[][] b : arr) {
             if (b == null || b.length == 256) return false;
         }
         return true;
     }
 
-    private boolean isAllFull(boolean[][] arr) {
+    private boolean isAllFull(final boolean[][] arr) {
         for (boolean[] b : arr) {
             if (b == null || b.length == 256) return false;
         }
         return true;
     }
 
-    boolean isAllTrue(boolean[] arr) {
+    boolean isAllTrue(final boolean[] arr) {
         for (boolean b : arr) {
             if (!b) return false;
         }
@@ -80,10 +82,5 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
     public long getUniqueAddrCount() {
         return size;
     }
-
-    int[] getAddrInt(String addrStr) {
-        return Arrays.stream(addrStr.split("\\.")).mapToInt(Integer::parseInt).toArray();
-    }
-
 
 }
