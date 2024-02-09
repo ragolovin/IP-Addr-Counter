@@ -2,7 +2,10 @@ package com.ecwid.counter;
 
 import com.ecwid.IpAddressUtils;
 
-final public class IpAddrCounterEffective implements IpAddrCounter {
+/*
+    Effective for random addresses
+ */
+final public class UniqueIpAddrCounterEffective implements UniqueIpAddrCounter {
     private int[] key;
     private boolean[] used;
     private static final float f = 0.75f;
@@ -12,7 +15,7 @@ final public class IpAddrCounterEffective implements IpAddrCounter {
     private int mask;
     private int size;
 
-    public IpAddrCounterEffective() {
+    public UniqueIpAddrCounterEffective() {
         hashTableSize = arraySize(INITIAL_CAPACITY);
         mask = hashTableSize - 1;
         key = new int[hashTableSize];
@@ -20,7 +23,7 @@ final public class IpAddrCounterEffective implements IpAddrCounter {
     }
 
     @Override
-    public void add(final String addr) {
+    public void addAddress(final String addr) {
         int k = IpAddressUtils.fromIpStrToInt(addr);
         int pos = (murmurHash3((k))) & mask;
         while (used[pos]) {
@@ -33,7 +36,7 @@ final public class IpAddrCounterEffective implements IpAddrCounter {
     }
 
     @Override
-    public int getUniqueAddrCount() {
+    public long getUniqueAddrCount() {
         return size;
     }
 

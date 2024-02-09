@@ -13,10 +13,18 @@ A simple text file with IPv4 addresses is given. One line – one address, somet
 ```
 
 The application count the number of __unique addresses__ in this file.
-The first application argument is a path to the file.
+
+First application argument is a path to the file.
+
+Second argument defines count algorithm:
+
+* h -> effective for addresses from same subnets.
+* e -> (default) effective for random addresses. Will be broken for huge amount of addresses.
+
+All implementations are not threadsafe.
 
 #### Compilation and start
 Java 17 and Maven are required.
 ```bash
-$> mvn package && java -jar .\target\id-addr-counter-1.0-SNAPSHOT.jar ".\src\test\resources\ip.txt"
+$> mvn package && java -jar .\target\id-addr-counter-1.0-SNAPSHOT.jar ".\src\test\resources\ip.txt h"
 ```

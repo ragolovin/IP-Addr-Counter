@@ -4,15 +4,15 @@ import com.ecwid.IpAddressUtils;
 
 import java.util.HashSet;
 
-final public class IpAddrCounterNaive implements IpAddrCounter{
+final public class UniqueIpAddrCounterNaive implements UniqueIpAddrCounter {
     private final HashSet<Integer> uniqueNumbers = new HashSet<>();
     @Override
-    public void add(String addr) {
+    public void addAddress(String addr) {
         uniqueNumbers.add(IpAddressUtils.fromIpStrToInt(addr));
     }
 
     @Override
-    public int getUniqueAddrCount() {
+    public long getUniqueAddrCount() {
         return uniqueNumbers.size();
     }
 }
