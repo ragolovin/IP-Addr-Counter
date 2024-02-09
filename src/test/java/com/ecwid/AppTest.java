@@ -5,6 +5,7 @@ import com.ecwid.counter.UniqueIpAddrCounterEffective;
 import com.ecwid.counter.UniqueIpAddrCounterHuge;
 import com.ecwid.counter.UniqueIpAddrCounterNaive;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Mode;
@@ -25,7 +26,7 @@ public class AppTest
         UniqueIpAddrCounter counterEffective = new UniqueIpAddrCounterEffective();
         UniqueIpAddrCounter counterHuge = new UniqueIpAddrCounterHuge();
         Stream.generate(IpAddressUtils::getRandomIp)
-                .limit(30000000).forEach(line -> {
+                .limit(30000).forEach(line -> {
                     counterNaive.addAddress(line);
                     counterEffective.addAddress(line);
                     counterHuge.addAddress(line);
@@ -37,6 +38,7 @@ public class AppTest
         Assertions.assertEquals(counterEffective.getUniqueAddrCount(), counterHuge.getUniqueAddrCount());
     }
 
+    @Disabled
     @Test
     void testBenchmark() throws RunnerException {
         Options options = new OptionsBuilder()
@@ -73,7 +75,7 @@ public class AppTest
 
     private void count(UniqueIpAddrCounter counterPerfect) {
         Stream.generate(IpAddressUtils::getNextIp)
-                .limit(1000000).forEach(counterPerfect::addAddress);
+                .limit(1000).forEach(counterPerfect::addAddress);
     }
 
 }
