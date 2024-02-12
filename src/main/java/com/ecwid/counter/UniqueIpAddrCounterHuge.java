@@ -1,7 +1,5 @@
 package com.ecwid.counter;
 
-import java.util.Arrays;
-
 import static com.ecwid.IpAddressUtils.getAddrInt;
 
 /*
@@ -11,6 +9,11 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
 
     private final boolean[][][][] addresses = new boolean[256][][][];
     int size = 0;
+
+    @Override
+    public long getUniqueAddrCount() {
+        return size;
+    }
 
     @Override
     public void addAddress(final String addr) {
@@ -25,7 +28,7 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
             if (addresses[a].length == 0) {
                 return;
             }
-            if (isAllFull(addresses[a])) {
+            if (isAllFilled(addresses[a])) {
                 addresses[a] = new boolean[0][][];
             }
         }
@@ -35,7 +38,7 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
             if (addresses[a][b].length == 0) {
                 return;
             }
-            if (isAllFull(addresses[a][b])) {
+            if (isAllFilled(addresses[a][b])) {
                 addresses[a][b] = new boolean[0][];
                 return;
             }
@@ -52,35 +55,30 @@ final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
                 return;
             }
         }
-        if (isAllTrue(addresses[a][b][c])) {
+        if (isAllFilled(addresses[a][b][c])) {
             addresses[a][b][c] = new boolean[0];
         }
     }
 
-    private boolean isAllFull(final boolean[][][] arr) {
+    private boolean isAllFilled(final boolean[][][] arr) {
         for (boolean[][] b : arr) {
             if (b == null || b.length == 256) return false;
         }
         return true;
     }
 
-    private boolean isAllFull(final boolean[][] arr) {
+    private boolean isAllFilled(final boolean[][] arr) {
         for (boolean[] b : arr) {
             if (b == null || b.length == 256) return false;
         }
         return true;
     }
 
-    boolean isAllTrue(final boolean[] arr) {
+    private boolean isAllFilled(final boolean[] arr) {
         for (boolean b : arr) {
             if (!b) return false;
         }
         return true;
-    }
-
-    @Override
-    public long getUniqueAddrCount() {
-        return size;
     }
 
 }

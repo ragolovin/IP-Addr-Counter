@@ -1,6 +1,7 @@
 package com.ecwid;
 
 import com.ecwid.counter.UniqueIpAddrCounter;
+import com.ecwid.counter.UniqueIpAddrCounterBest;
 import com.ecwid.counter.UniqueIpAddrCounterEffective;
 import com.ecwid.counter.UniqueIpAddrCounterHuge;
 
@@ -22,7 +23,8 @@ public class App
         switch (args[1]){
             case "h"-> counter = new UniqueIpAddrCounterHuge();
             case "e"-> counter = new UniqueIpAddrCounterEffective();
-            default -> counter = new UniqueIpAddrCounterEffective();
+            case "b" -> counter = new UniqueIpAddrCounterBest();
+            default -> counter = new UniqueIpAddrCounterBest();
         }
         try(BufferedReader reader = Files.newBufferedReader(path);) {
             reader.lines().forEach(counter::addAddress);
