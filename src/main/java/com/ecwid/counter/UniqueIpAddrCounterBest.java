@@ -5,8 +5,8 @@ import org.roaringbitmap.RoaringBitmap;
 
 final public class UniqueIpAddrCounterBest implements UniqueIpAddrCounter {
 
-    RoaringBitmap integers = new RoaringBitmap();
-    long size = 0;
+    private RoaringBitmap integers = new RoaringBitmap();
+    private long size = 0;
 
     @Override
     public void addAddress(final String addr) {

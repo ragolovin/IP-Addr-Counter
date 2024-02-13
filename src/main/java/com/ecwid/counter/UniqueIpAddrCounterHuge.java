@@ -8,7 +8,7 @@ import static com.ecwid.IpAddressUtils.getAddrInt;
 final public class UniqueIpAddrCounterHuge implements UniqueIpAddrCounter {
 
     private final boolean[][][][] addresses = new boolean[256][][][];
-    int size = 0;
+    private int size = 0;
 
     @Override
     public long getUniqueAddrCount() {

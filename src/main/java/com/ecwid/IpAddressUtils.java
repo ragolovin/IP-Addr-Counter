@@ -26,13 +26,18 @@ public class IpAddressUtils {
     }
 
     public static String getNextIp() {
+        String ip = a + "." + b + "." + c + "." + d;
         if (d == 255) {
             d = 0;
             if (c == 255) {
                 c = 0;
                 if (b == 255) {
                     b = 0;
-                    a++;
+                    if (a == 255) {
+                        a = 0;
+                    } else {
+                        a++;
+                    }
                 } else {
                     b++;
                 }
@@ -42,6 +47,6 @@ public class IpAddressUtils {
         } else {
             d++;
         }
-        return a + "." + b + "." + c + "." + d;
+        return ip;
     }
 }
